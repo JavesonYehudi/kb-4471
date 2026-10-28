@@ -1,0 +1,54 @@
+---
+layout: runbook
+title: '#4471 split · what the reports show'
+owner: Javeson Anjos
+status: living
+reviewed: 2026-10-28
+signature: Javeson Anjos
+---
+
+<script>
+  import SplitTable from '#lib/kb/SplitTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+#4471 was merged as one issue and marked known: the parser reads dates month first, and our
+day-first tenants write day first. Reading the reports it merged against the tenant directory,
+with the desk's own cause logic, shows the ticket covers more than the one issue it names.
+
+## The split
+
+<SplitTable ticket={4471} />
+
+<Callout kind="warn">
+The desk's table still says one cause. The hint cause has no ticket of its own, and the one-day
+moves were footnoted, not filed.
+</Callout>
+
+## What each problem is
+
+**parser** — the shared parser reads every date month first. A day-first tenant's dates come out
+with the month and the day flipped. This is the bug the ticket names, and the fix is queued.
+
+**hint** — through the booking-v3 form, the hint under the date field prints month first. The
+tenant's people type what the hint tells them, and the form reads it the tenant's way. The flip
+happens in the form, not in the parser: a different bug. A queued parser fix will not cover it.
+
+**one-day move** — the booking lands one day off, not a month off. An invite that says Tuesday
+shows as Monday, and one meeting showed Tuesday in Lisbon and Monday in Toronto, and the company
+held it twice. None of the five bodies describe a month and day flip.
+
+## What the desk sees today
+
+<CauseTable ticket={4471} />
+
+## Tickets
+
+One ticket per problem, in the repo this kb was sent to the course from:
+
+- [parser](https://github.com/JavesonYehudi/kb-4471/issues/1)
+- [hint](https://github.com/JavesonYehudi/kb-4471/issues/2)
+- [one-day move](https://github.com/JavesonYehudi/kb-4471/issues/3)
+
+<RenderStamp {signature} />
