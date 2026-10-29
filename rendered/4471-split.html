@@ -28,8 +28,6 @@
   .note { color: var(--muted); font-size: 0.85em; }
   .wrong td { background: var(--warn-bg); }
   .wrong td:last-child { color: var(--warn); font-weight: 600; }
-  .what { color: var(--muted); font-size: 0.85em; }
-  .filed { color: var(--muted); font-size: 0.85em; }
   .stamp { margin: 2rem 0 0; font: 0.85rem var(--mono); color: var(--muted); }
   .stamp b { color: var(--accent); letter-spacing: 0.04em; }
 </style>
@@ -42,61 +40,16 @@
     <p class="meta">
       <span>owner <b>Javeson Anjos</b></span>
       <span class="status living">living</span>
-      <span>reviewed 2026-10-28 · 0 days ago</span>
+      <span>reviewed 2026-10-28 · 1 days ago</span>
     </p>
   </header>
   <main>
     <p>#4471 was merged as one issue and marked known: the parser reads dates month first, and our
     day-first tenants write day first. Reading the reports it merged against the tenant directory,
-    with the desk's own cause logic, shows the ticket covers more than the one issue it names.</p>
+    with the desk's own cause logic, shows a second problem in the ticket, and five reports the desk
+    reads differently from their cause.</p>
 
-    <h2>The split</h2>
-
-<table>
-  <thead><tr><th>problem</th><th>reports it covers</th><th>tenants</th><th>seen</th><th>where filed</th></tr></thead>
-  <tbody>
-
-    <tr>
-      <td><code>parser</code><br><span class="what">month and day flip: the parser reads month first</span></td>
-      <td>374</td>
-      <td>11</td>
-      <td>2026-04-01 → 2026-10-04</td>
-      <td class="filed">the filed cause of #4471 — its group of 379 includes the ones below</td>
-    </tr>
-    <tr>
-      <td><code>hint</code><br><span class="what">month and day flip: the booking-v3 form prints month first</span></td>
-      <td>33</td>
-      <td>3</td>
-      <td>2026-04-17 → 2026-09-22</td>
-      <td class="filed">merged into #4471 — no ticket of its own</td>
-    </tr>
-    <tr>
-      <td><code>one-day-move</code><br><span class="what">lands one day off, not a month off</span></td>
-      <td>5 · R-41202 R-41209 R-41236 R-41344 R-41620</td>
-      <td>5</td>
-      <td>2026-04-02 → 2026-10-04</td>
-      <td class="filed">footnoted under the tenant’s cause — never filed</td>
-    </tr>
-  </tbody>
-</table>
-<p class="sum">374 + 33 + 5 = 412 — one report, one problem</p>
-
-    <aside class="warn">
-      The desk's table still says one cause. The hint cause has no ticket of its own, and the one-day
-      moves were footnoted, not filed.
-    </aside>
-
-    <h2>What each problem is</h2>
-    <p><strong>parser</strong> — the shared parser reads every date month first. A day-first tenant's dates come out
-    with the month and the day flipped. This is the bug the ticket names, and the fix is queued.</p>
-    <p><strong>hint</strong> — through the booking-v3 form, the hint under the date field prints month first. The
-    tenant's people type what the hint tells them, and the form reads it the tenant's way. The flip
-    happens in the form, not in the parser: a different bug. A queued parser fix will not cover it.</p>
-    <p><strong>one-day move</strong> — the booking lands one day off, not a month off. An invite that says Tuesday
-    shows as Monday, and one meeting showed Tuesday in Lisbon and Monday in Toronto, and the company
-    held it twice. None of the five bodies describe a month and day flip.</p>
-
-    <h2>What the desk sees today</h2>
+    <h2>The causes</h2>
 
 <p class="sum"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
 
@@ -127,12 +80,71 @@
 <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
 
 
+    <aside class="warn">
+      The hint cause is a different bug from the parser, and it has no ticket of its own: its reports sit
+      in #4471, which was opened for the parser.
+    </aside>
+
+    <h2>The hint cause</h2>
+    <p>Through the booking-v3 form, the hint under the date field prints month first. The tenant's people
+    type what the hint tells them, and the form reads it the tenant's way. The flip happens in the form,
+    not in the parser: a different bug, and a queued parser fix will not cover it.</p>
+
+    <h2>The five the desk reads differently</h2>
+
+<p class="sum"><strong>5</strong> reports the desk reads as a one-day move</p>
+
+<table>
+  <thead><tr><th>id</th><th>tenant</th><th>via</th><th>received</th><th>what it says</th></tr></thead>
+  <tbody>
+
+    <tr>
+      <td><code>R-41202</code></td>
+      <td>kettle.books (nl-NL)</td>
+      <td>email</td>
+      <td>2026-04-02</td>
+      <td>“Invite says Tuesday 12 May. Calendar says Monday 11 May. My client turned up on the Monday. We had coffee.”</td>
+    </tr>
+    <tr>
+      <td><code>R-41209</code></td>
+      <td>alder.physio (de-DE)</td>
+      <td>app</td>
+      <td>2026-04-06</td>
+      <td>“Every booking in June is one day off. Only June. Why only June.”</td>
+    </tr>
+    <tr>
+      <td><code>R-41236</code></td>
+      <td>nine.lanterns (pl-PL)</td>
+      <td>app</td>
+      <td>2026-04-20</td>
+      <td>“The invite arrived before I made the booking. I would like to know how.”</td>
+    </tr>
+    <tr>
+      <td><code>R-41344</code></td>
+      <td>pale.harbour (pt-PT)</td>
+      <td>email</td>
+      <td>2026-06-12</td>
+      <td>“Client in Lisbon got Tuesday. Client in Toronto got Monday. Same meeting. We held it twice.”</td>
+    </tr>
+    <tr>
+      <td><code>R-41620</code></td>
+      <td>lantern.row (cs-CZ)</td>
+      <td>email</td>
+      <td>2026-10-04</td>
+      <td>“Tuesday 6 October showed as Monday. I moved it myself. I have stopped reporting these but my colleague says it helps you.”</td>
+    </tr>
+  </tbody>
+</table>
+
+    <p>A one-day move is not a month flip: none of the five bodies describes the month and the day
+    swapped. The desk's rule counts them where they're filed — under the tenant's cause — and footnotes
+    them, so they stay in the cause table above, not in a ticket of their own.</p>
+
     <h2>Tickets</h2>
-    <p>One ticket per problem, in the repo this kb was sent to the course from:</p>
+    <p>One ticket per problem:</p>
     <ul>
       <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/1">parser</a></li>
       <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/2">hint</a></li>
-      <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/3">one-day move</a></li>
     </ul>
 
     <p class="stamp">desk ref <b>DR-A2TN-1XG2</b></p>
