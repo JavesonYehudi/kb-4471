@@ -47,7 +47,7 @@
     <p>#4471 was merged as one issue and marked known: the parser reads dates month first, and our
     day-first tenants write day first. Reading the reports it merged against the tenant directory,
     with the desk's own cause logic, shows a second problem in the ticket, and five reports the desk
-    reads differently from their cause.</p>
+    reads differently from their cause. The desk closed #4471 on 5 October.</p>
 
     <h2>The causes</h2>
 
@@ -81,14 +81,16 @@
 
 
     <aside class="warn">
-      The hint cause is a different bug from the parser, and it has no ticket of its own: its reports sit
-      in #4471, which was opened for the parser.
+      The hint cause is a different bug from the parser, and it never had a ticket of its own: its
+      reports sit in #4471, which was opened for the parser.
     </aside>
 
-    <h2>The hint cause</h2>
-    <p>Through the booking-v3 form, the hint under the date field prints month first. The tenant's people
-    type what the hint tells them, and the form reads it the tenant's way. The flip happens in the form,
-    not in the parser: a different bug, and a queued parser fix will not cover it.</p>
+    <h2>What each problem is</h2>
+    <p><strong>parser</strong> — the shared parser reads every date month first. A day-first tenant's dates come out
+    with the month and the day flipped. The desk fixed it: <code>fix(dates): parse dd/mm for eu locales</code>.</p>
+    <p><strong>hint</strong> — through the booking-v3 form, the hint under the date field prints month first. The
+    tenant's people type what the hint tells them, and the form reads it the tenant's way. The flip
+    happens in the form, not in the parser. The desk won't fix it: the booking-v3 form is retired.</p>
 
     <h2>The five the desk reads differently</h2>
 
@@ -141,10 +143,10 @@
     them, so they stay in the cause table above, not in a ticket of their own.</p>
 
     <h2>Tickets</h2>
-    <p>One ticket per problem:</p>
+    <p>One ticket per problem, closed with the desk's resolution:</p>
     <ul>
-      <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/1">parser</a></li>
-      <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/2">hint</a></li>
+      <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/1">parser — fixed</a></li>
+      <li><a href="https://github.com/JavesonYehudi/kb-4471/issues/2">hint — won't fix</a></li>
     </ul>
 
     <p class="stamp">desk ref <b>DR-A2TN-1XG2</b></p>

@@ -16,22 +16,25 @@ signature: Javeson Anjos
 #4471 was merged as one issue and marked known: the parser reads dates month first, and our
 day-first tenants write day first. Reading the reports it merged against the tenant directory,
 with the desk's own cause logic, shows a second problem in the ticket, and five reports the desk
-reads differently from their cause.
+reads differently from their cause. The desk closed #4471 on 5 October.
 
 ## The causes
 
 <CauseTable ticket={4471} />
 
 <Callout kind="warn">
-The hint cause is a different bug from the parser, and it has no ticket of its own: its reports sit
-in #4471, which was opened for the parser.
+The hint cause is a different bug from the parser, and it never had a ticket of its own: its
+reports sit in #4471, which was opened for the parser.
 </Callout>
 
-## The hint cause
+## What each problem is
 
-Through the booking-v3 form, the hint under the date field prints month first. The tenant's people
-type what the hint tells them, and the form reads it the tenant's way. The flip happens in the form,
-not in the parser: a different bug, and a queued parser fix will not cover it.
+**parser** — the shared parser reads every date month first. A day-first tenant's dates come out
+with the month and the day flipped. The desk fixed it: `fix(dates): parse dd/mm for eu locales`.
+
+**hint** — through the booking-v3 form, the hint under the date field prints month first. The
+tenant's people type what the hint tells them, and the form reads it the tenant's way. The flip
+happens in the form, not in the parser. The desk won't fix it: the booking-v3 form is retired.
 
 ## The five the desk reads differently
 
@@ -43,9 +46,9 @@ them, so they stay in the cause table above, not in a ticket of their own.
 
 ## Tickets
 
-One ticket per problem:
+One ticket per problem, closed with the desk's resolution:
 
-- [parser](https://github.com/JavesonYehudi/kb-4471/issues/1)
-- [hint](https://github.com/JavesonYehudi/kb-4471/issues/2)
+- [parser — fixed](https://github.com/JavesonYehudi/kb-4471/issues/1)
+- [hint — won't fix](https://github.com/JavesonYehudi/kb-4471/issues/2)
 
 <RenderStamp {signature} />
